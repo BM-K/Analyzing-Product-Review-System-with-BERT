@@ -21,6 +21,8 @@ import os
 from .utils import DataProcessor, InputExample, InputFeatures
 from ...file_utils import is_tf_available
 
+# testesttestesttestesttestesttestesttestesttestesttestest
+
 if is_tf_available():
     import tensorflow as tf
 
@@ -170,7 +172,7 @@ class MrpcProcessor(DataProcessor):
     def get_dev_examples(self, data_dir):
         """See base class."""
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "dev.tsv")), "dev")
+            self._read_tsv(os.path.join(data_dir, "test.tsv")), "dev")
 
     def get_labels(self):
         """See base class."""
@@ -183,13 +185,13 @@ class MrpcProcessor(DataProcessor):
             if i == 0:
                 continue
             guid = "%s-%s" % (set_type, i)
-            text_a = line[3]
-            text_b = line[4]
-            label = line[0]
+            text_a = line[1]
+            #text_b = line[4]
+            label = line[2]
             examples.append(
-                InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
+                InputExample(guid=guid, text_a=text_a, label=label))
         return examples
-
+# 이 부분 왜 안 바뀌지..?
 
 class MnliProcessor(DataProcessor):
     """Processor for the MultiNLI data set (GLUE version)."""

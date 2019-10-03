@@ -32,10 +32,10 @@ class InputExample(object):
         label: (Optional) string. The label of the example. This should be
         specified for train and dev examples, but not for test examples.
     """
-    def __init__(self, guid, text_a, text_b=None, label=None):
+    def __init__(self, guid, text_a, label=None):
         self.guid = guid
         self.text_a = text_a
-        self.text_b = text_b
+       # self.text_b = text_b
         self.label = label
 
     def __repr__(self):
