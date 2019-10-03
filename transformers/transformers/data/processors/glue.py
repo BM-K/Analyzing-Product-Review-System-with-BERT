@@ -189,7 +189,7 @@ class MrpcProcessor(DataProcessor):
             #text_b = line[4]
             label = line[2]
             examples.append(
-                InputExample(guid=guid, text_a=text_a, label=label))
+                InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
         return examples
 # 이 부분 왜 안 바뀌지..?
 
@@ -272,7 +272,7 @@ class ColaProcessor(DataProcessor):
         examples = []
         for (i, line) in enumerate(lines):
             guid = "%s-%s" % (set_type, i)
-            text_a = line[3]
+            #text_a = line[3]
             label = line[1]
             examples.append(
                 InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
@@ -388,7 +388,7 @@ class QqpProcessor(DataProcessor):
                 continue
             guid = "%s-%s" % (set_type, line[0])
             try:
-                text_a = line[3]
+                #text_a = line[3]
                 text_b = line[4]
                 label = line[5]
             except IndexError:

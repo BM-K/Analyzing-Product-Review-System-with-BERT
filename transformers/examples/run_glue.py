@@ -69,7 +69,7 @@ def set_seed(args):
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     if args.n_gpu > 0:
-        torch.cuda.manual_seed_all(args.seed)
+        torch.cuda.manual_seed_all(args.seed) # .cuda.manual_seed_all(args.seed)
 
 
 def train(args, train_dataset, model, tokenizer):
@@ -402,12 +402,14 @@ def main():
         ptvsd.wait_for_attach()
 
     # Setup CUDA, GPU & distributed training
+    #device = torch.device('cuda:1')
+    #args.n_gpu = torch.cuda.device_count()
     if args.local_rank == -1 or args.no_cuda:
-        device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
-        args.n_gpu = torch.cuda.device_count()
+        device = torch.device("cuda:1" if torch.cuda.is_available() and not args.no_cuda else "cpu")
+        args.n_gpu = torch.cuda.device_count()   #.cuda.device_count()
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
-        torch.cuda.set_device(args.local_rank)
-        device = torch.device("cuda", args.local_rank)
+        torch.cuda.set_device(args.local_rank)  #.cuda.set_device(args.local_rank)
+        device = torch.device("cuda:1", args.local_rank)
         torch.distributed.init_process_group(backend='nccl')
         args.n_gpu = 1
     args.device = device
