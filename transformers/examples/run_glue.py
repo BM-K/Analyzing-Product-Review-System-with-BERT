@@ -17,6 +17,7 @@
 
 from __future__ import absolute_import, division, print_function
 
+import make_output_file_graph as ifg
 import argparse
 import glob
 import logging
@@ -192,7 +193,6 @@ def train(args, train_dataset, model, tokenizer):
 
     return global_step, tr_loss / global_step
 
-
 def evaluate(args, model, tokenizer, prefix=""):
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_task_names = ("mnli", "mnli-mm") if args.task_name == "mnli" else (args.task_name,)
@@ -214,6 +214,7 @@ def evaluate(args, model, tokenizer, prefix=""):
         logger.info("***** Running evaluation {} *****".format(prefix))
         logger.info("  Num examples = %d", len(eval_dataset))
         logger.info("  Batch size = %d", args.eval_batch_size)
+
         eval_loss = 0.0
         nb_eval_steps = 0
         preds = None
@@ -240,7 +241,7 @@ def evaluate(args, model, tokenizer, prefix=""):
                 preds = np.append(preds, logits.detach().cpu().numpy(), axis=0)
                 out_label_ids = np.append(out_label_ids, inputs['labels'].detach().cpu().numpy(), axis=0)
 
-        eval_loss = eval_loss / nb_eval_steps
+        eval_loss = round(eval_loss / nb_eval_steps, 10)
         if args.output_mode == "classification":
             preds = np.argmax(preds, axis=1)
         elif args.output_mode == "regression":
@@ -249,12 +250,19 @@ def evaluate(args, model, tokenizer, prefix=""):
         results.update(result)
 
         output_eval_file = os.path.join(eval_output_dir, "eval_results.txt")   # here is output
+        print("-------------------------  eval_loss = ", eval_loss)
         with open(output_eval_file, "w") as writer:
             logger.info("***** Eval results {} *****".format(prefix))
             for key in sorted(result.keys()):
                 logger.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
-
+        ## -------------------------------------
+        # Make output file and image graph. import make_output_file_graph.py
+        Make_out_graph = ifg.make_output_file_graph(preds)
+        one, zero = Make_out_graph.make_output_labels()
+        Make_out_graph.make_output_labels_num(one, zero)
+        Make_out_graph.make_graph(one, zero)
+        # ## -------------------------------------
     return results
 
 
@@ -405,11 +413,11 @@ def main():
     #device = torch.device('cuda:1')
     #args.n_gpu = torch.cuda.device_count()
     if args.local_rank == -1 or args.no_cuda:
-        device = torch.device("cuda:1" if torch.cuda.is_available() and not args.no_cuda else "cpu")
+        device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         args.n_gpu = torch.cuda.device_count()   #.cuda.device_count()
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)  #.cuda.set_device(args.local_rank)
-        device = torch.device("cuda:1", args.local_rank)
+        device = torch.device("cuda", args.local_rank)
         torch.distributed.init_process_group(backend='nccl')
         args.n_gpu = 1
     args.device = device
