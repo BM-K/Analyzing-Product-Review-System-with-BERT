@@ -2,3 +2,4 @@
 
 ## prepare
 ## cuda 1 
+## add make_output_file_graph  and modify run_glue
