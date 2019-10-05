@@ -1,11 +1,11 @@
 import matplotlib.pyplot as plt
 fig = plt.figure()
 
-class make_output_file_graph():
+class make_output_file_graph(): # Creating a graph and output file
     def __init__(self, preds):
         self.preds = preds
 
-    def make_output_labels(self):
+    def make_output_labels(self):   #Creating output label files in local server
         one = 0
         zero = 0
         preds_label_data = []
@@ -25,7 +25,7 @@ class make_output_file_graph():
                     zero += 1
         return one, zero
 
-    def make_output_labels_num(self, one, zero):
+    def make_output_labels_num(self, one, zero):    # Creating output file that contain number of 'one' or 'zero' labels
         with open("output_labels_num.txt", 'w') as writer:
             writer.write("one :")
             writer.write(str(one))
@@ -34,7 +34,7 @@ class make_output_file_graph():
             writer.write(str(zero))
             writer.write('\n')
 
-    def make_graph(self, one, zero):
+    def make_graph(self, one, zero):    # Creating graph that contain percentage of 'good' or 'bad'
         labels = ['good', 'bad']
         ratio = [one, zero]
         plt.pie(ratio, labels=labels, shadow=True, startangle=90, autopct='%1.2f%%')
