@@ -153,7 +153,7 @@ def glue_convert_examples_to_features(examples, tokenizer,
     return features
 
 
-class MrpcProcessor(DataProcessor):
+class MrpcProcessor(DataProcessor): # I use this processor
     """Processor for the MRPC data set (GLUE version)."""
 
     def get_example_from_tensor_dict(self, tensor_dict):
@@ -186,12 +186,12 @@ class MrpcProcessor(DataProcessor):
                 continue
             guid = "%s-%s" % (set_type, i)
             text_a = line[1]
-            #text_b = line[4]
+            #text_b = line[4] , I don't need 'text_b'
             label = line[2]
             examples.append(
-                InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+                InputExample(guid=guid, text_a=text_a, text_b=None, label=label)) # so text_b = None value
         return examples
-# 이 부분 왜 안 바뀌지..?
+
 
 class MnliProcessor(DataProcessor):
     """Processor for the MultiNLI data set (GLUE version)."""
