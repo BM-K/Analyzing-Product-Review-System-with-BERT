@@ -17,13 +17,16 @@
 
 from __future__ import absolute_import, division, print_function
 
+
 import make_output_file_graph as ifg
 import argparse
 import glob
 import logging
 import os
 import random
-
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import bring_zeroLabel_des as bzl
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
@@ -262,6 +265,12 @@ def evaluate(args, model, tokenizer, prefix=""):
         one, zero = Make_out_graph.make_output_labels()
         Make_out_graph.make_output_labels_num(one, zero)
         Make_out_graph.make_graph(one, zero)
+
+        count = 0
+        bzl.bring_output_label()
+        filename = "test.tsv"
+        bzl.bring_test_file(filename, count)
+        bzl.test()
         # ## -------------------------------------
     return results
 
