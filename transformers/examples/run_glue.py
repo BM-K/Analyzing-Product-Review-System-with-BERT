@@ -27,6 +27,7 @@ import random
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import bring_zeroLabel_des as bzl
+import TFIDF
 import numpy as np
 import torch
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
@@ -259,18 +260,20 @@ def evaluate(args, model, tokenizer, prefix=""):
             for key in sorted(result.keys()):
                 logger.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
-        ## -------------------------------------
-        # Make output file and image graph. import make_output_file_graph.py
-        Make_out_graph = ifg.make_output_file_graph(preds)
-        one, zero = Make_out_graph.make_output_labels()
-        Make_out_graph.make_output_labels_num(one, zero)
-        Make_out_graph.make_graph(one, zero)
+            ## -------------------------------------
+            # Make output file and image graph. import make_output_file_graph.py
+            Make_out_graph = ifg.make_output_file_graph(preds)
+            one, zero = Make_out_graph.make_output_labels()
+            Make_out_graph.make_output_labels_num(one, zero)
+            Make_out_graph.make_graph(one, zero)
 
-        count = 0
-        bzl.bring_output_label()
-        filename = "test.tsv"
-        bzl.bring_test_file(filename, count)
-        # ## -------------------------------------
+            count = 0
+            bzl.bring_output_label()
+            filename = "sd1_allp.tsv"
+            bzl.bring_test_file(filename, count)
+            bzl.print_bad_des(filename)
+            TFIDF.main__run()
+            ## -------------------------------------
     return results
 
 
