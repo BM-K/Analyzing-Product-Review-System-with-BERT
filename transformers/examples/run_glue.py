@@ -270,7 +270,6 @@ def evaluate(args, model, tokenizer, prefix=""):
         bzl.bring_output_label()
         filename = "test.tsv"
         bzl.bring_test_file(filename, count)
-        bzl.test()
         # ## -------------------------------------
     return results
 
