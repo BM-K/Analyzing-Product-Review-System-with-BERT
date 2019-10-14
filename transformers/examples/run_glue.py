@@ -266,6 +266,8 @@ def evaluate(args, model, tokenizer, prefix=""):
             one, zero = Make_out_graph.make_output_labels()
             Make_out_graph.make_output_labels_num(one, zero)
             Make_out_graph.make_graph(one, zero)
+            Make_out_graph.make_bert_pred_bad_des()
+            Make_out_graph.make_bad_des_file()
 
             count = 0
             bzl.bring_output_label()

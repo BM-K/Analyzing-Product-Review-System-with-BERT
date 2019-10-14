@@ -16,7 +16,7 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     idx = int(idx)
     sim_scores = list(enumerate(cosine_sim[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:11]
+    sim_scores = sim_scores[1:31]
     data_indices = [i[0] for i in sim_scores]
     num=1
     print("\n")
@@ -49,7 +49,7 @@ def main__run():
     data_Des = []
     k = 0
 
-    f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig')
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         data_num.append(line[0])
