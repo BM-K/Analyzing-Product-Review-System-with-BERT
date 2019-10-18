@@ -267,12 +267,13 @@ def evaluate(args, model, tokenizer, prefix=""):
             Make_out_graph.make_output_labels_num(one, zero)
             Make_out_graph.make_graph(one, zero)
             Make_out_graph.make_bert_pred_bad_des()
-            Make_out_graph.make_bad_des_file()
+            Make_out_graph.make_bad_des_file()  # 여기
 
             count = 0
             bzl.bring_output_label()
             filename = "sd1_allp.tsv"
             bzl.bring_test_file(filename, count)
+            #filename = "bad_long_des_after_bert.tsv"
             bzl.print_bad_des(filename)
             TFIDF.main__run()
             ## -------------------------------------

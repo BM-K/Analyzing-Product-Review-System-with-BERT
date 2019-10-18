@@ -51,17 +51,20 @@ def main__run():
     name = 0
     k = 0
 
-    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
+    f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig') # 주석처럼 만들고 여기에는 bad_long_des 넣어주면 된다.
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
-        if len(line[2]) > 100:
+        #if len(line[2]) > 100:
             #data_num.append(line[0])
             #data_Name.append(line[1])
-            data_num.append(num)
-            data_Name.append(name)
+        data_num.append(line[0])
+        data_Name.append(line[1])
+        if len(line[2]) < 100:
+            data_Des.append('x') # 꼼수
+        else:
             data_Des.append(line[2])
-            num+=1
-            name+=1
+        num+=1
+        name+=1
             #k += 1
     f.close()
 
