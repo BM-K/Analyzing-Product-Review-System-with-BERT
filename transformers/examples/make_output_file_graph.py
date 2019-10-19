@@ -38,11 +38,11 @@ class make_output_file_graph():
                 else:
                     count += 1
 
-    def make_bad_des_file(self):
+    def make_bad_long_des_file(self):
         long_des = []
         count = 0
         idx_count = 0
-        f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig')  # 여기에 해당하는 파일을 bad 파일 tsv로 만들면 된다.
+        f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig')
         rdr = csv.reader(f, delimiter='\t')
         for line in rdr:
             temp = []
@@ -62,7 +62,32 @@ class make_output_file_graph():
                 index = str(index)
                 ld = str(ld)
                 wr.writerow([index, index, ld])
+        print(self.bad_label_index)
 
+    def make_bad_shot_des_file(self):
+        shot_des = []
+        count = 0
+        idx_count = 0
+        f = open('./GLUE_DIR/MRPC/sd1_allp.tsv', 'r', encoding='utf-8-sig')
+        rdr = csv.reader(f, delimiter='\t')
+        for line in rdr:
+            temp = []
+            if int(self.bad_label_index[count]) == int(line[0]):
+                temp.append(idx_count)
+                temp.append(line[1])
+                shot_des.append(temp)
+                idx_count += 1
+                count += 1
+        f.close()
+
+        with open("bad_shot_des_after_bert.tsv", 'w', encoding='utf-8') as f:
+            wr = csv.writer(f, delimiter='\t')
+            for i in range(len(shot_des)):
+                index = shot_des[i][0]
+                sd = shot_des[i][1]
+                index = str(index)
+                sd = str(sd)
+                wr.writerow([index, sd])
 
     def make_output_labels_num(self, one, zero):
         with open("output_labels_num.txt", 'w') as writer:
