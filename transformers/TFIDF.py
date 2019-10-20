@@ -2,6 +2,7 @@ import csv
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 import bring_zeroLabel_des as bzl
+import sys
 
 def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     while True:
@@ -20,13 +21,13 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     data_indices = [i[0] for i in sim_scores]
     num=1
     print("\n")
-    f = open('./GLUE_DIR/MRPC/sd1_allp.tsv', 'r', encoding='utf-8-sig')
+    f = open('bad_shot_des_after_bert.tsv', 'r', encoding='utf-8-sig')
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         if line[0] == title_idx:
             shot_des = line[1]
     f.close()
-    f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig')
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         if line[0] == title_idx:
@@ -51,7 +52,7 @@ def main__run():
     name = 0
     k = 0
 
-    f = open('./GLUE_DIR/MRPC/ld1_allp.tsv', 'r', encoding='utf-8-sig') # 주석처럼 만들고 여기에는 bad_long_des 넣어주면 된다.
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig') # 주석처럼 만들고 여기에는 bad_long_des 넣어주면 된다.
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         #if len(line[2]) > 100:
@@ -81,8 +82,12 @@ def main__run():
     print("--Running--")
     while (1):
         print("------------------------------------------------------")
-        idx = input("What do you want to see index : ")
+        idx = input("What do you want to see index(exit:-1) : ")
+        num = int(idx)
         if idx in bzl.index:
             get_TFIDF_Result(idx, cosine_sim, indices, data_Des)
         else:
-            print("--Error--No index--")
+            if num == -1:
+                sys.exit()
+            else:
+                print("-------Error--No--Index--------")

@@ -62,7 +62,6 @@ class make_output_file_graph():
                 index = str(index)
                 ld = str(ld)
                 wr.writerow([index, index, ld])
-        print(self.bad_label_index)
 
     def make_bad_shot_des_file(self):
         shot_des = []

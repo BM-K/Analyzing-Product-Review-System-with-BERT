@@ -267,7 +267,7 @@ def evaluate(args, model, tokenizer, prefix=""):
             Make_out_graph.make_output_labels_num(one, zero)
             Make_out_graph.make_graph(one, zero)
             Make_out_graph.make_bert_pred_bad_des()
-            Make_out_graph.make_bad_long_des_file()  # 여기
+            Make_out_graph.make_bad_long_des_file()
             Make_out_graph.make_bad_shot_des_file()
 
             count = 0
