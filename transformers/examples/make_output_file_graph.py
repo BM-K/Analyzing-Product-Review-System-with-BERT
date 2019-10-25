@@ -102,3 +102,9 @@ class make_output_file_graph():
         ratio = [one, zero]
         plt.pie(ratio, labels=labels, shadow=True, startangle=90, autopct='%1.2f%%')
         fig.savefig('./graph_go_consol' + '.png')
+
+    def make_graph2(self, epoch, loss):
+        plt.plot(epoch, loss)
+        plt.ylabel('Loss')
+        plt.xlabel('Epoch')
+        fig.savefig('./graph_loss_go_consol' + '.png')

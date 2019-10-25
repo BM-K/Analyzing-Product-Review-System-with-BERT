@@ -21,7 +21,6 @@ import os
 from .utils import DataProcessor, InputExample, InputFeatures
 from ...file_utils import is_tf_available
 
-# testesttestesttestesttestesttestesttestesttestesttestest
 
 if is_tf_available():
     import tensorflow as tf
@@ -165,9 +164,9 @@ class MrpcProcessor(DataProcessor):
 
     def get_train_examples(self, data_dir):
         """See base class."""
-        logger.info("LOOKING AT {}".format(os.path.join(data_dir, "train.tsv")))
+        logger.info("LOOKING AT {}".format(os.path.join(data_dir, "Last_all_train.tsv")))
         return self._create_examples(
-            self._read_tsv(os.path.join(data_dir, "train.tsv")), "train") 
+            self._read_tsv(os.path.join(data_dir, "Last_all_train.tsv")), "train")
 
     def get_dev_examples(self, data_dir):
         """See base class."""

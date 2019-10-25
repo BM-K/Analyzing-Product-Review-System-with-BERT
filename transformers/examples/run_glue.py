@@ -55,7 +55,8 @@ from transformers import glue_compute_metrics as compute_metrics
 from transformers import glue_output_modes as output_modes
 from transformers import glue_processors as processors
 from transformers import glue_convert_examples_to_features as convert_examples_to_features
-
+loss_graph = []
+num_graph = []
 logger = logging.getLogger(__name__)
 
 ALL_MODELS = sum((tuple(conf.pretrained_config_archive_map.keys()) for conf in (BertConfig, XLNetConfig, XLMConfig, RobertaConfig)), ())
@@ -132,7 +133,9 @@ def train(args, train_dataset, model, tokenizer):
     model.zero_grad()
     train_iterator = trange(int(args.num_train_epochs), desc="Epoch", disable=args.local_rank not in [-1, 0])
     set_seed(args)  # Added here for reproductibility (even between python 2 and 3)
-    for _ in train_iterator:
+
+
+    for num in train_iterator:
         epoch_iterator = tqdm(train_dataloader, desc="Iteration", disable=args.local_rank not in [-1, 0])
         for step, batch in enumerate(epoch_iterator):
             model.train()
@@ -143,8 +146,9 @@ def train(args, train_dataset, model, tokenizer):
             if args.model_type != 'distilbert':
                 inputs['token_type_ids'] = batch[2] if args.model_type in ['bert', 'xlnet'] else None  # XLM, DistilBERT and RoBERTa don't use segment_ids
             outputs = model(**inputs)
-            loss = outputs[0]  # model outputs are always tuple in transformers (see doc)
+            loss = outputs[0]  # model outputs are always tuple in transformers (see doc)\
 
+            #loss here
             if args.n_gpu > 1:
                 loss = loss.mean() # mean() to average on multi-gpu parallel training
             if args.gradient_accumulation_steps > 1:
@@ -159,6 +163,10 @@ def train(args, train_dataset, model, tokenizer):
                 torch.nn.utils.clip_grad_norm_(model.parameters(), args.max_grad_norm)
 
             tr_loss += loss.item()
+
+            loss_graph.append(loss.item())
+            num_graph.append(num)
+
             if (step + 1) % args.gradient_accumulation_steps == 0:
                 optimizer.step()
                 scheduler.step()  # Update learning rate schedule
@@ -261,11 +269,19 @@ def evaluate(args, model, tokenizer, prefix=""):
                 logger.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
             ## -------------------------------------
+            print(len(loss_graph),"\n")
+            print(len(num_graph), "\n")
+            num_ = []
+            for i in range(len(num_graph)):
+                num_.append(int(i))
+            print(num_)
+            print(loss_graph)
             # Make output file and image graph. import make_output_file_graph.py
             Make_out_graph = ifg.make_output_file_graph(preds)
             one, zero = Make_out_graph.make_output_labels()
             Make_out_graph.make_output_labels_num(one, zero)
-            Make_out_graph.make_graph(one, zero)
+            #Make_out_graph.make_graph(one, zero)
+            Make_out_graph.make_graph2(num_, loss_graph)
             Make_out_graph.make_bert_pred_bad_des()
             Make_out_graph.make_bad_long_des_file()
             Make_out_graph.make_bad_shot_des_file()
@@ -274,10 +290,9 @@ def evaluate(args, model, tokenizer, prefix=""):
             bzl.bring_output_label()
             filename = "sd1_allp.tsv"
             bzl.bring_test_file(filename, count)
-            #filename = "bad_long_des_after_bert.tsv"
             bzl.print_bad_des(filename)
             TFIDF.main__run()
-            ## -------------------------------------
+            # -------------------------------------
     return results
 
 
