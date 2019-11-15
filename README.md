@@ -24,7 +24,7 @@ The current product review sentiment analysis codes were analyzed using models s
 After sentiment analysis through a complex network of transfomer structures, their own embedding method, a BERT model using an activation function, harsh criticisms are printed on the screen. In addition, when a user (company) presses the criticism of the screen, the user can see a harsh criticisms similar to itself so that the user can know and develop for the defect of there product. <br><img src = https://user-images.githubusercontent.com/55969260/68919732-81b84180-07b6-11ea-96a7-57290b65e005.png><br>
 
 # Training
-A total of 4249 data were trained and tested with 1819 data. I used Amazon product review data and yelp data
+A total of 4249 data were trained and tested with 1819 data. I used Amazon product review data, yelp and imdb data.
 <br> ＊ train data <img src= https://user-images.githubusercontent.com/55969260/68920184-d60ff100-07b7-11ea-820a-dd902a9d2387.png><br>
 The accuracy and f1 score are as follows<br>
 <img src = https://user-images.githubusercontent.com/55969260/68920328-36069780-07b8-11ea-8b5a-d2b4eb9b07d9.png><br>
