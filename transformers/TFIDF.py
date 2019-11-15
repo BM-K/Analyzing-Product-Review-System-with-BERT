@@ -3,6 +3,28 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 import bring_zeroLabel_des as bzl
 import sys
+import re
+import nltk
+from nltk.corpus import stopwords
+
+def data_text_cleaning(data):
+    # 영문자 이외 문자는 공백으로 변환
+    only_english = re.sub('[^a-zA-Z]', ' ', data)
+
+    # 소문자 변환
+    no_capitals = only_english.lower().split()
+
+    # 불용어 제거
+    stops = set(stopwords.words('english'))
+    no_stops = [word for word in no_capitals if not word in stops]
+
+    # 어간 추출
+    stemmer = nltk.stem.SnowballStemmer('english')
+    stemmer_words = [stemmer.stem(word) for word in no_stops]
+
+    # 공백으로 구분된 문자열로 결합하여 결과 반환
+    return ' '.join(stemmer_words)
+
 
 def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     while True:
@@ -37,10 +59,14 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     print("Your input : ", title_idx, "\nshot_des : ", shot_des, "\nlong_des : ", long_des)
     print("\n")
     print("================Print Similar data================")
-    for i in data_indices:
-        print(num,":",data_Des[i])
-        print("\n")
-        num += 1
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
+    rdr = csv.reader(f, delimiter='\t')
+    for line in rdr:
+        for i in data_indices:
+            if(int(line[0])==int(i)):
+                print(num,":",line[2])
+                print('\n')
+                num += 1
     print("=======================================================")
 
 
@@ -50,23 +76,19 @@ def main__run():
     data_Des = []
     num = 0
     name = 0
-    k = 0
 
     f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig') # 주석처럼 만들고 여기에는 bad_long_des 넣어주면 된다.
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
-        #if len(line[2]) > 100:
-            #data_num.append(line[0])
-            #data_Name.append(line[1])
         data_num.append(line[0])
         data_Name.append(line[1])
         if len(line[2]) < 100:
             data_Des.append('x') # 꼼수
         else:
-            data_Des.append(line[2])
+            data_Des.append(data_text_cleaning(line[2]))
         num+=1
         name+=1
-            #k += 1
+
     f.close()
 
     pd_data_des = pd.Series(data_Des, index=data_num)
