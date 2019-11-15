@@ -20,4 +20,23 @@ Usually used in Information retrieval or Textminig. Using TF-IDF, you can find o
 The current product review sentiment analysis codes were analyzed using models such as RNN (Recurrent Neural Networks), LSTM (Long Short-Term Memory), word2vec embedding, and SVM (Support Vector Machine). F1-score showed up to 80% on Amazon reviews data. In addition, research was stopped in sentiment analysis, and there were not many cases of using it meaningfully in real life. In thie project, I will use BERT to create software that analyzes sentiment and provides meaningful information through similarity test.
 
 # Program progress
-After sentiment analysis through a complex network of transfomer structures, their own embedding method, a BERT model using an activation function, harsh criticisms are printed on the screen. In addition, when a user (company) presses the criticism of the screen, the user can see a harsh criticisms similar to itself so that the user can know and develop for the defect of there product.
+After sentiment analysis through a complex network of transfomer structures, their own embedding method, a BERT model using an activation function, harsh criticisms are printed on the screen. In addition, when a user (company) presses the criticism of the screen, the user can see a harsh criticisms similar to itself so that the user can know and develop for the defect of there product. <br><img src = https://user-images.githubusercontent.com/55969260/68919732-81b84180-07b6-11ea-96a7-57290b65e005.png><br>
+
+# Training
+A total of 4249 data were trained and tested with 1819 data. I used Amazon product review data and yelp data
+<br> ＊ train data <img src= https://user-images.githubusercontent.com/55969260/68920184-d60ff100-07b7-11ea-820a-dd902a9d2387.png><br>
+The accuracy and f1 score are as follows<br>
+<img src = https://user-images.githubusercontent.com/55969260/68920328-36069780-07b8-11ea-8b5a-d2b4eb9b07d9.png><br>
+
+# Program execution
+The review to analyze is the earphones sold by Amazon. The reviews on the earphones were as follows and the labels were all zeroed out and put in the BERT.
+<br><img src =https://user-images.githubusercontent.com/55969260/68920775-b4b00480-07b9-11ea-86d1-580226ec01a7.png><br>
+When the program is executed, it is displayed on the screen as follows. Here is part of the output
+<br><img src=https://user-images.githubusercontent.com/55969260/68921825-4d944f00-07bd-11ea-9081-69472cc92307.png><br>
+The result of pressing 113 index. Similarity is measured through ld (long description). Index 113 reviews the connection issues and the bad use of the earphones in the game (PUBG) , and shows similar descriptions.
+<br><img src =https://user-images.githubusercontent.com/55969260/68921946-a368f700-07bd-11ea-8370-88fa5f5faa3b.png><br>
+
+# References
+- [1] Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova , 	BERT : Pre-training of Deep Bidirectional Transformers for Language Understanding									Network. arXiv:1810.04805
+- [2] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin , 	Attention Is All You Need								Network. arXiv:1706.03762
+- [3] https://nesoy.github.io/articles/2017-11/tf-idf
