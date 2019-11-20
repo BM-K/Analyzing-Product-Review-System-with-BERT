@@ -40,5 +40,6 @@ The result of pressing 113 index. Similarity is measured through ld (long descri
 # References
 - [1] Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova , 	BERT : Pre-training of Deep Bidirectional Transformers for Language Understanding									Network. arXiv:1810.04805
 - [2] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin , 	Attention Is All You Need								Network. arXiv:1706.03762
-- [3] https://nesoy.github.io/articles/2017-11/tf-idf
-- [4] https://wikidocs.net/31379
+- [3] https://github.com/huggingface/transformers
+- [4] https://nesoy.github.io/articles/2017-11/tf-idf
+- [5] https://wikidocs.net/31379
