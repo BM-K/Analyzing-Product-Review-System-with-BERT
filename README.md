@@ -45,3 +45,4 @@ The result of pressing 113 index. Similarity is measured through ld (long descri
 - [5] https://wikidocs.net/31379
 
 --소페 발표 완료, 기능 추가하기--
+word 기능 하는중 1125
