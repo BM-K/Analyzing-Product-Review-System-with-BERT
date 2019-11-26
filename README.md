@@ -36,6 +36,11 @@ When the program is executed, it is displayed on the screen as follows. Here is 
 <br><img src=https://user-images.githubusercontent.com/55969260/68921825-4d944f00-07bd-11ea-9081-69472cc92307.png><br>
 The result of pressing 113 index. Similarity is measured through ld (long description). Index 113 reviews the connection issues and the bad use of the earphones in the game (PUBG) , and shows similar descriptions.
 <br><img src =https://user-images.githubusercontent.com/55969260/68921946-a368f700-07bd-11ea-8370-88fa5f5faa3b.png><br>
+## +Plue
+As an additional function, if you click number 2, you can search reviews that your word appeare a lot.
+<br><img src=https://user-images.githubusercontent.com/55969260/69590928-68c05380-1034-11ea-86a5-96eab1e1b7f7.png><br>
+Example) word = connectivity
+<br><img src=https://user-images.githubusercontent.com/55969260/69590981-9c02e280-1034-11ea-8fb9-24de968fc943.png><br>
 
 # References
 - [1] Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova , 	BERT : Pre-training of Deep Bidirectional Transformers for Language Understanding									Network. arXiv:1810.04805
@@ -43,6 +48,3 @@ The result of pressing 113 index. Similarity is measured through ld (long descri
 - [3] https://github.com/huggingface/transformers
 - [4] https://nesoy.github.io/articles/2017-11/tf-idf
 - [5] https://wikidocs.net/31379
-
---소페 발표 완료, 기능 추가하기--
-word 기능 하는중 1125
