@@ -24,20 +24,15 @@ def bring_test_file(file, count):
             count += 1
     f.close()
 
+list_1=[]
 def print_bad_des(file):
     count = 0
-    max = 0
-    sum = 0
-    num = 10
     f = open("bad_shot_des_after_bert.tsv", 'r', encoding="utf-8") # 여기를 애초에 만든 bad des 를 넣어줘야함.??
                                                                 # 위 처럼 하기 위해서는 bad des 에 대한 shot des 도 만들어야함. 위에 shot des 넣어주면 되지. bad shot des
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         if count == 9 :
             break
-            # sum += len(line[1])
-            # if max < len(line[1]):
-            #     max = len(line[1])
         if len(line[1]) > 90:
             print("index : ", line[0], "\nshot_des : ", line[1])
             f2 = open('bad_long_des_after_bert.tsv','r',encoding=
@@ -46,9 +41,14 @@ def print_bad_des(file):
             for line2 in rdr2:
                 if line[0] == line2[0]:
                     print("\nlong_des : ",line2[2],"\n")
+                    temp_dic = {'index': line[0],
+                                'shot_des': line[1],
+                                'long_des': line2[2]}
+                    list_1.append(temp_dic)
                     print("------------------------------------------"
                               "---------------------------------------")
                     break
             count += 1
             index.append(line[0])
     f.close()
+    return list_1

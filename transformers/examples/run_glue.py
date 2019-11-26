@@ -269,19 +269,13 @@ def evaluate(args, model, tokenizer, prefix=""):
                 logger.info("  %s = %s", key, str(result[key]))
                 writer.write("%s = %s\n" % (key, str(result[key])))
             ## -------------------------------------
-            print(len(loss_graph),"\n")
-            print(len(num_graph), "\n")
-            num_ = []
-            for i in range(len(num_graph)):
-                num_.append(int(i))
-            print(num_)
-            print(loss_graph)
+
             # Make output file and image graph. import make_output_file_graph.py
             Make_out_graph = ifg.make_output_file_graph(preds)
             one, zero = Make_out_graph.make_output_labels()
             Make_out_graph.make_output_labels_num(one, zero)
             #Make_out_graph.make_graph(one, zero)
-            Make_out_graph.make_graph2(num_, loss_graph)
+            #Make_out_graph.make_graph2(num_, loss_graph)
             Make_out_graph.make_bert_pred_bad_des()
             Make_out_graph.make_bad_long_des_file()
             Make_out_graph.make_bad_shot_des_file()

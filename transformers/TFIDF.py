@@ -25,8 +25,37 @@ def data_text_cleaning(data):
     # 공백으로 구분된 문자열로 결합하여 결과 반환
     return ' '.join(stemmer_words)
 
+def get_page_myword(word, sentence):
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
+    rdr = csv.reader(f, delimiter='\t')
+    for line in rdr:
+        long_des = line[2]
+        count = 0
+        b = long_des.lower().split(' ')
+        for j in b:
+            if word == j:
+                count+=1
+            else:
+                continue
+        sentence.append(count)
+    f.close()
+    Max_index = []
+    for i in range(6):
+        Max = max(sentence)
+        Max_index.append(sentence.index(Max))
+        sentence[Max_index[i]] = 0
+    print(Max_index)
+    f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
+    rdr = csv.reader(f, delimiter='\t')
+    for line in rdr:
+        if int(line[0]) in Max_index:
+            print("index :",line[0])
+            print(line[2])
+            print("------------------------------------------------------","\n")
+
 
 def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
+    list2=[]
     while True:
         try:
             idx = indices[title_idx]
@@ -43,12 +72,14 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     data_indices = [i[0] for i in sim_scores]
     num=1
     print("\n")
+
     f = open('bad_shot_des_after_bert.tsv', 'r', encoding='utf-8-sig')
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
         if line[0] == title_idx:
             shot_des = line[1]
     f.close()
+
     f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
     rdr = csv.reader(f, delimiter='\t')
     for line in rdr:
@@ -57,6 +88,10 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
     f.close()
 
     print("Your input : ", title_idx, "\nshot_des : ", shot_des, "\nlong_des : ", long_des)
+    tmp_dic = {"Your input : ": title_idx,
+               "\nshot_des : ": shot_des,
+               "\nlong_des : ": long_des}
+
     print("\n")
     print("================Print Similar data================")
     f = open('bad_long_des_after_bert.tsv', 'r', encoding='utf-8-sig')
@@ -65,10 +100,12 @@ def get_TFIDF_Result(title_idx, cosine_sim, indices, data_Des):
         for i in data_indices:
             if(int(line[0])==int(i)):
                 print(num,":",line[2])
+                tmp_dic2 = { num : line[2] }
+                list2.append(tmp_dic2)
                 print('\n')
                 num += 1
     print("=======================================================")
-
+    return tmp_dic, list2
 
 def main__run():
     data_num = []
@@ -104,12 +141,28 @@ def main__run():
     print("--Running--")
     while (1):
         print("------------------------------------------------------")
-        idx = input("What do you want to see index(exit:-1) : ")
-        num = int(idx)
-        if idx in bzl.index:
-            get_TFIDF_Result(idx, cosine_sim, indices, data_Des)
-        else:
-            if num == -1:
-                sys.exit()
+        #idx = input("What do you want to see index(exit:-1) : ")
+        print("1 : search similar reviews ")
+        print("2 : search word ")
+        print("0 : exit")
+        a = input("input number: ")
+        a = int(a)
+        if a == 1:
+            idx = input("What do you want to see index(exit:-1) : ")
+            if idx in bzl.index:
+                get_TFIDF_Result(idx, cosine_sim, indices, data_Des)
             else:
-                print("-------Error--No--Index--------")
+                if num == -1:
+                    sys.exit()
+                else:
+                    print("-------Error--No--Index--------")
+        elif a == 2:
+            word = input("word input : ")
+            sentence = []
+            get_page_myword(word.lower(), sentence)
+        elif a == 0:
+            exit()
+        else:
+            print("Error No function try again")
+
+
