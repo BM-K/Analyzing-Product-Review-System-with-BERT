@@ -47,4 +47,3 @@ Example) word = connectivity
 - [2] Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin , 	Attention Is All You Need								Network. arXiv:1706.03762
 - [3] https://github.com/huggingface/transformers
 - [4] https://nesoy.github.io/articles/2017-11/tf-idf
-- [5] https://wikidocs.net/31379
