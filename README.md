@@ -38,7 +38,7 @@ The result of pressing 113 index. Similarity is measured through ld (long descri
 ## +Plus
 As an additional function, if you click number 2, you can search reviews that your word appeare a lot.
 <br><img src=https://user-images.githubusercontent.com/55969260/69590928-68c05380-1034-11ea-86a5-96eab1e1b7f7.png><br>
-Example) word = connectivity
+Example) word: connectivity
 <br><img src=https://user-images.githubusercontent.com/55969260/69590981-9c02e280-1034-11ea-8fb9-24de968fc943.png><br>
 
 # References
